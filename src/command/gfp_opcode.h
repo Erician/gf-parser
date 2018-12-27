@@ -25,6 +25,7 @@ namespace gfp
             SKIP0 = 70,             /* skip no blank rows */
             SKIP1 = 71,             /* skip over blank rows */
             SKIP2 = 72,             /* skip over blank rows */
+            SKIP3 = 73,             /* skip over blank rows */
 
 
             NEW_ROW_0 = 74,         /* move down one row and then right */
@@ -34,8 +35,7 @@ namespace gfp
             XXX1 = 239,             /* for special strings */
             XXX2 = 240,
             XXX3 = 241,
-            XXX4 = 242,
-            xxx9 = 241,             /* for long special strings */
+            XXX4 = 242,             /* for long special strings */
             yyy = 243,              /* for numspecial numbers */
 
             NO_OP = 244,            /* No operation, do nothing */

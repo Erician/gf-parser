@@ -12,6 +12,7 @@ namespace gfp
         {
             std::vector<std::string> split(std::string src, std::string str_to_find);
             std::string strip(std::string src,char c); 
+            int BytesToIntWithBigEndian(char *bytes, int start, int end);
 
         }; // namespace stringutil
     }; // namespace utils 

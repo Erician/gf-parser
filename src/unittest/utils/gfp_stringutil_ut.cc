@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 #include "utils/gfp_stringutil.h"
 
+/******** split test ********/
 TEST(SplitTest, NormalString_ShouldPass)
 {
     std::string test_string("1=2");
@@ -36,8 +37,7 @@ TEST(SplitTest, SplitWithNotAChar_ShouldPass)
     ASSERT_EQ(pairs.size(), 2);
 }
 
-
-
+/******** strip test ********/
 TEST(StripTest, SimpleString_ShouldPass)
 {
     std::string test_string("  fsfs  ");
@@ -56,5 +56,17 @@ TEST(StripTest, StringWithNothingToStrip_ShouldPass)
     ASSERT_EQ(gfp::utils::stringutil::strip(test_string, ' '), "fsfs");    
 }
 
+/******** BytesToIntWithBigEndian test ********/
+TEST(BytesToIntWithBigEndianTest, OneToFourBytes_ShouldPass)
+{   
+    char one_byte[1] = {0x12};
+    char two_byte[2] = {0x12,0x34};
+    char three_byte[3] = {0x12, 0x34, 0x56};
+    char four_byte[4] = {0x12, 0x34, 0x56, 0x78};
+    
+    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(one_byte, 0, 1), 0x12);
+    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(two_byte, 0, 2), 0x3412);
+    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(three_byte, 0, 3), 0x563412);
+    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(four_byte, 0, 4), 0x78563412);
 
-
+}

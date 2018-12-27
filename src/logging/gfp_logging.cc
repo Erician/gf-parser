@@ -22,7 +22,7 @@
 
 Logging logging;
 
-Logging::Logging():kConfigFilePath_("logging/gpf_logging.ini"), config()
+Logging::Logging():kConfigFilePath_("logging/gfp_logging.ini"), config()
 {
     is_busy_ = false;
     if(access(kConfigFilePath_.c_str(), 0) == 0)

@@ -2,10 +2,15 @@
 #include <elf.h>
 #include <unistd.h>
 #include <string.h>
+
+#define TO_NAME(x) #x
+
+class Test {
+
+};
+
 int main() {
 
-    if (ELFMAG[0] == 0x7f){
-        std::cout << "ok " << std::endl;
-    }
-
+    char *a = new char [0];
+    std::cout << a << std::endl;
 }

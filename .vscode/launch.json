@@ -5,10 +5,10 @@
             "name": "(gdb) WSL Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/mnt/e/gf-parser/src/gf-parser",
-            "args": [],
+            "program": "/mnt/e/gf-parser/src/gfp",
+            "args": ["cmr10.gf"],
             "stopAtEntry": false,
-            "cwd": "/mnt/e/gf-parser",
+            "cwd": "/mnt/e/gf-parser/src",
             "environment": [],
             "externalConsole": true,
             "windows": {

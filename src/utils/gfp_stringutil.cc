@@ -28,3 +28,12 @@ std::string gfp::utils::stringutil::strip(std::string src, char c)
         end--;
     return src.substr(start, end - start + 1);
 }
+
+int gfp::utils::stringutil::BytesToIntWithBigEndian(
+        char *bytes, int start, int end){
+    int return_val = 0;
+    for(int i = end-1; i>=start; i--){
+        return_val = (return_val<<8) | bytes[i];
+    }
+    return return_val;
+}
