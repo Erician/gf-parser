@@ -63,10 +63,14 @@ TEST(BytesToIntWithBigEndianTest, OneToFourBytes_ShouldPass)
     char two_byte[2] = {0x12,0x34};
     char three_byte[3] = {0x12, 0x34, 0x56};
     char four_byte[4] = {0x12, 0x34, 0x56, 0x78};
+
+    char four_byte_1[4] = {0x00, (char)0xA0, 0x00, 0x00};
     
     ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(one_byte, 0, 1), 0x12);
-    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(two_byte, 0, 2), 0x3412);
-    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(three_byte, 0, 3), 0x563412);
-    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(four_byte, 0, 4), 0x78563412);
+    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(two_byte, 0, 2), 0x1234);
+    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(three_byte, 0, 3), 0x123456);
+    ASSERT_EQ(gfp::utils::stringutil::BytesToIntWithBigEndian(four_byte, 0, 4), 0x12345678);
+
+    ASSERT_EQ((unsigned int)(gfp::utils::stringutil::BytesToIntWithBigEndian(four_byte_1, 0, 4)), 0x00A00000);
 
 }

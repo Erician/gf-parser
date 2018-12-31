@@ -32,8 +32,8 @@ std::string gfp::utils::stringutil::strip(std::string src, char c)
 int gfp::utils::stringutil::BytesToIntWithBigEndian(
         char *bytes, int start, int end){
     int return_val = 0;
-    for(int i = end-1; i>=start; i--){
-        return_val = (return_val<<8) | bytes[i];
+    for(int i = start; i < end; i++){
+        return_val = (return_val<<8) | (unsigned char)bytes[i];
     }
     return return_val;
 }

@@ -18,6 +18,7 @@
 #endif
 
 #include <map>
+#include <vector>
 
 namespace gfp {
 
@@ -31,6 +32,7 @@ public:
     Command *post_post_;
     std::map<unsigned char, CharacterLocator *> character_locator_map_;
     std::map<unsigned int, Character *> character_map_;
+    std::vector<XxxN *> xxxn_vector_;
     Font();
     Font(std::string font_file_name);
     void SetPre(Pre *pre);
@@ -38,6 +40,7 @@ public:
     void SetPostPost(PostPost *post_post);
     int AddCharacterLocator(CharacterLocator *character_locator);
     int AddCharacter(Character *character);
+    int AddXxxN(XxxN *xxxn);
     int Parse();
     /* draw means interprete the command of characters */
     int Draw(Pen *pen, DrawingBoard *drawing_board);

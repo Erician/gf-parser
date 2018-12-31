@@ -135,9 +135,14 @@ Command* Boc::Parse(std::ifstream *ifs){
     max_m_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 12, 16);
     min_n_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 16, 20);
     max_n_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 20, 24);
+
+    LOG.Info(std::string(buffer));
+
     delete[] buffer;
     
+    LOG.Info("Boc");
     LOG.Info("character_code: " + std::to_string(character_code_));
+    LOG.Info("pointer: " + pointer_);
     LOG.Info("min_m: " + std::to_string(min_m_));
     LOG.Info("max_m: " + std::to_string(max_m_));
     LOG.Info("min_n: " + std::to_string(min_n_));
@@ -183,7 +188,9 @@ Command* Boc1::Parse(std::ifstream *ifs){
     max_n_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 4, 5);
     delete[] buffer;
 
+    LOG.Info("Boc1");
     LOG.Info("character_code: " + std::to_string(character_code_));
+    LOG.Info("pointer: -1");
     LOG.Info("del_m: " + std::to_string(del_m_));
     LOG.Info("max_m: " + std::to_string(max_m_));
     LOG.Info("del_n: " + std::to_string(del_n_));
@@ -207,6 +214,7 @@ Eoc::Eoc(unsigned char opcode){
     opcode_ = opcode;
 }
 Command* Eoc::Parse(std::ifstream *ifs){
+    LOG.Info("Eoc");
     LOG.Info("\n");
     return this;
 }
@@ -282,10 +290,10 @@ XxxN::XxxN(unsigned char opcode, \
     x_ = x;
 }
 Command* XxxN::Parse(std::ifstream *ifs){
-    int length = 4;
+    int length = opcode_ - opcode::XXX1 + 1;
     char * buffer1 = new char [length];
     ifs->read(buffer1, length);
-    k_ = utils::stringutil::BytesToIntWithBigEndian(buffer1, 0, 4);
+    k_ = utils::stringutil::BytesToIntWithBigEndian(buffer1, 0, length);
 
     char * buffer2 = new char [k_];
     ifs->read(buffer2, k_);
@@ -294,8 +302,10 @@ Command* XxxN::Parse(std::ifstream *ifs){
     delete[] buffer1;
     delete[] buffer2;
 
+    LOG.Info("XxxN");
     LOG.Info("k: " + std::to_string(k_));
     LOG.Info("x: " + x_);
+    LOG.Info("\n");
 
     return this;
 }
@@ -378,6 +388,15 @@ Command* CharLoc::Parse(std::ifstream *ifs){
     width_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 9, 13);
     pointer_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 13, 17);
     delete[] buffer;
+
+    LOG.Info("CharLoc");
+    LOG.Info("character_residue: " + std::to_string(character_residue_));
+    LOG.Info("dx: " + std::to_string(dx_));
+    LOG.Info("dy: " + std::to_string(dy_));
+    LOG.Info("width: " + std::to_string(width_));
+    LOG.Info("pointer: " + std::to_string(pointer_));
+    LOG.Info("\n");
+
     return this;
 }
 
@@ -406,6 +425,14 @@ Command* CharLoc0::Parse(std::ifstream *ifs){
     width_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 2, 6);
     pointer_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 6, 10);
     delete[] buffer;
+
+    LOG.Info("CharLoc0");
+    LOG.Info("character_residue: " + std::to_string(character_residue_));
+    LOG.Info("dm: " + std::to_string(dm_));
+    LOG.Info("width: " + std::to_string(width_));
+    LOG.Info("pointer: " + std::to_string(pointer_));
+    LOG.Info("\n");
+
     return this;
 }
 
@@ -437,6 +464,7 @@ Command* Pre::Parse(std::ifstream *ifs){
     ifs->read(buffer2, k_);
     x_ = std::string(buffer2);
 
+    LOG.Info("Pre");
     LOG.Info("id_name: " + std::to_string(id_num_));
     LOG.Info("k: " + std::to_string(k_));
     LOG.Info("x: " + std::string(buffer2));
@@ -500,6 +528,12 @@ Command* Post::Parse(std::ifstream *ifs){
     min_n_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 28, 32);
     max_n_ = utils::stringutil::BytesToIntWithBigEndian(buffer, 32, 36);
     delete[] buffer;
+
+    LOG.Info("Post");
+    LOG.Info("pointer: " + std::to_string(pointer_));
+    LOG.Info("design_size: " + std::to_string(design_size_));
+    LOG.Info("\n");
+
     return this;
 }
 
@@ -534,6 +568,13 @@ Command* PostPost::Parse(std::ifstream *ifs){
 
     delete[] buffer1;
     delete[] buffer2;
+
+    LOG.Info("PostPost");
+    LOG.Info("q: " + std::to_string(q_));
+    LOG.Info("id_num: " + std::to_string(id_num_));
+    LOG.Info("padding_bytes: " + std::string(padding_bytes_));
+    LOG.Info("\n");
+
     return this;
 }
 

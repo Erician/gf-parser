@@ -24,6 +24,7 @@ Font::Font(){
     post_post_ = NULL;
     character_locator_map_ = std::map<unsigned char, CharacterLocator *>();
     character_map_ = std::map<unsigned int, Character *>();
+    xxxn_vector_ = std::vector<XxxN *>();
 }
 
 Font::Font(std::string font_file_name){
@@ -33,6 +34,7 @@ Font::Font(std::string font_file_name){
     post_post_ = NULL;
     character_locator_map_ = std::map<unsigned char, CharacterLocator *>();
     character_map_ = std::map<unsigned int, Character *>();
+    xxxn_vector_ = std::vector<XxxN *>();
 }
 
 void Font::SetPre(Pre *pre){
@@ -69,6 +71,11 @@ int Font::AddCharacter(Character *character){
     }
 }
 
+int Font::AddXxxN(XxxN *xxxn) {
+    xxxn_vector_.push_back(xxxn);
+    return 0;
+}
+
 /* always return 0 */
 int Font::Parse() {
     std::ifstream *ifs = new std::ifstream();
@@ -91,6 +98,8 @@ int Font::Parse() {
             this->AddCharacter(character->Parse(ifs));
         }else if(opcode == opcode::CHAR_LOC || opcode == opcode::CHAR_LOC0){
             this->AddCharacterLocator((CharacterLocator *)(command->Parse(ifs)));
+        }else if(opcode >= opcode::XXX1 && opcode <= opcode::XXX4) {
+            this->AddXxxN((XxxN* )command->Parse(ifs));
         }
     }
     return 0;

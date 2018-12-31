@@ -60,6 +60,10 @@ public:
 /*  (a) the current column number, m; and (b) the current row number, n. 
 **  These are 32-bit signed integers 
 */
+
+/*  and p points to the previous character beginning (if any) 
+** for characters having this code number modulo 256. 
+*/
 class Boc : public BeginningOfCharacter {
 public:
     int pointer_;
@@ -126,6 +130,9 @@ public:
     int Draw(Pen *pen, DrawingBoard *drawing_board);
 };
 
+/* this occurs in the GF file only between characters, 
+** after the preamble, and before the postamble. 
+*/
 class XxxN : public Command {
 public:
     unsigned int k_;
@@ -157,6 +164,10 @@ public:
 };
 
 /* this should be abstract  */
+/* a pointer p to the beginning of that character. 
+** (If two or more characters have the same code c modulo 256, 
+** only the last will be indicated;
+** the others can be located by following backpointers) */
 class CharacterLocator : public Command {
 private:
 
